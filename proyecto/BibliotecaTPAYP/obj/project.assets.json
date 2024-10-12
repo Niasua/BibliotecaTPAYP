@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nico\\Desktop\\proyecto\\BibliotecaTPAYP\\BibliotecaTPAYP.csproj",
+      "projectUniqueName": "C:\\Users\\Nico\\Desktop\\proyecto\\Proyecto Biblioteca\\BibliotecaTPAYP\\proyecto\\BibliotecaTPAYP\\BibliotecaTPAYP.csproj",
       "projectName": "BibliotecaTPAYP",
-      "projectPath": "C:\\Users\\Nico\\Desktop\\proyecto\\BibliotecaTPAYP\\BibliotecaTPAYP.csproj",
+      "projectPath": "C:\\Users\\Nico\\Desktop\\proyecto\\Proyecto Biblioteca\\BibliotecaTPAYP\\proyecto\\BibliotecaTPAYP\\BibliotecaTPAYP.csproj",
       "packagesPath": "C:\\Users\\Nico\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nico\\Desktop\\proyecto\\BibliotecaTPAYP\\obj\\",
+      "outputPath": "C:\\Users\\Nico\\Desktop\\proyecto\\Proyecto Biblioteca\\BibliotecaTPAYP\\proyecto\\BibliotecaTPAYP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nico\\AppData\\Roaming\\NuGet\\NuGet.Config"

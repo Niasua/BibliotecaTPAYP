@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks.Dataflow;
 
 namespace BibliotecaTPAYP
 {
@@ -89,6 +90,9 @@ namespace BibliotecaTPAYP
                     case 1:
                         agregarLibro(biblioteca);
                         break;
+                    case 2:
+                        eliminarLibro(biblioteca);
+                        break;
                 }
 
                 menuPrincipal();
@@ -104,10 +108,12 @@ namespace BibliotecaTPAYP
 			Console.WriteLine("*******************************************************************************");
 			Console.WriteLine("\nSeleccione una opción del menu:\n\n");
 			Console.WriteLine("1. Agregar libro\n2. Eliminar libro\n3. Dar ALTA socio/socio-lector\n4. Dar BAJA socio/socio-lector\n5. Prestar libro\n6. Devolver libro\n7. Submenú de impresión\n0. Salir");
+            Console.WriteLine();
         }
 
         static void agregarLibro(Biblioteca biblioteca){
-            //tres variables definidas suponiendo que el libro está disponible
+            //cuatro variables definidas suponiendo que el libro está disponible
+            bool libroDisponible = true;
             int dniSocio = 0;
             DateTime fechaPrestamo = DateTime.MinValue;
             DateTime fechaDevolucion= DateTime.MinValue;
@@ -125,8 +131,22 @@ namespace BibliotecaTPAYP
             string autorLibro = Console.ReadLine();
             Console.Write("Ingrese la editorial del libro: ");
             string editorialLibro = Console.ReadLine();
-            Console.Write("Está disponible? (True: sí/ False: no): ");
-            bool libroDisponible = bool.Parse(Console.ReadLine());
+            Console.Write("¿Está disponible?: ");
+            string preguntaDisponibilidad = Console.ReadLine();
+            //asegurarse que ingrese "si" o "no"
+            while(preguntaDisponibilidad.ToLower() == "si" | preguntaDisponibilidad.ToLower() == "no" ){
+                if(preguntaDisponibilidad.ToLower() == "no"){
+                    libroDisponible = false;
+                    break;
+                } else if (preguntaDisponibilidad.ToLower() == "si"){
+                    libroDisponible = true;
+                    break;
+                } else {
+                    Console.WriteLine("Ingrese 'si' o 'no'");
+                    Console.Write("¿Está disponible?: ");
+                    preguntaDisponibilidad = Console.ReadLine();
+                }
+            }
 
             //si el libro no está disponible, entonces se llena con los datos del socio que lo posee
             if (!libroDisponible)
@@ -148,6 +168,19 @@ namespace BibliotecaTPAYP
             Libro libro = new Libro(codigoLibro, tituloLibro, autorLibro, editorialLibro, libroDisponible, dniSocio, fechaPrestamo, fechaDevolucion);
             //guardado de libro en biblioteca
             biblioteca.agregarLibro(libro);            
+        }
+
+        static void eliminarLibro(Biblioteca biblioteca){
+            Console.WriteLine();
+            Console.WriteLine("### ELIMINAR LIBRO ###");
+            Console.Write("Ingrese el código del libro a eliminar: ");
+            int codigoLibro = int.Parse(Console.ReadLine());
+            Libro libroAEliminar = biblioteca.verLibro(codigoLibro);
+            if(!libroAEliminar.Estado){
+                Console.WriteLine("¡¡¡ Ese libro se encuentra prestado !!!");
+            } else {
+                biblioteca.eliminarLibro(libroAEliminar);
+            }
         }
 
         
