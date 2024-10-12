@@ -7,21 +7,21 @@ namespace BibliotecaTPAYP
         static void Main(string[] args)
         {
             //creación de libros para aplicación
-            Libro libro1 = new Libro("101", "El Principito", "Antoine de Saint-Exupéry", "Salamandra", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro2 = new Libro("102", "1984", "George Orwell", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro3 = new Libro("103", "Matar a un ruiseñor", "Harper Lee", "J.B. Lippincott & Co.", false, 20123456, new DateTime(2024, 9, 6), new DateTime(2024, 9, 15));
-            Libro libro4 = new Libro("104", "El Gran Gatsby", "F. Scott Fitzgerald", "Scribner", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro5 = new Libro("105", "Orgullo y Prejuicio", "Jane Austen", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro6 = new Libro("106", "Cien Años de Soledad", "Gabriel García Márquez", "Sudamericana", false, 30123457, new DateTime(2024, 9, 20), new DateTime(2024, 10, 5));
-            Libro libro7 = new Libro("107", "Crimen y Castigo", "Fiódor Dostoyevski", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro8 = new Libro("108", "Rayuela", "Julio Cortázar", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro9 = new Libro("109", "Don Quijote de la Mancha", "Miguel de Cervantes", "Castalia", false, 40123458, new DateTime(2024, 9, 25), new DateTime(2024, 10, 10));
-            Libro libro10 = new Libro("110", "La Odisea", "Homero", "Alianza", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro11 = new Libro("111", "La Casa de los Espíritus", "Isabel Allende", "Plaza & Janés", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro12 = new Libro("112", "El Amor en los Tiempos del Cólera", "Gabriel García Márquez", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro13 = new Libro("113", "Los Miserables", "Victor Hugo", "Penguin", false, 50123459, new DateTime(2024, 10, 3), new DateTime(2024, 10, 20));
-            Libro libro14 = new Libro("114", "Drácula", "Bram Stoker", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro15 = new Libro("115", "La Metamorfosis", "Franz Kafka", "Debolsillo", false, 60123450, new DateTime(2024, 10, 1), new DateTime(2024, 10, 2));
+            Libro libro1 = new Libro(101, "El Principito", "Antoine de Saint-Exupéry", "Salamandra", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro2 = new Libro(102, "1984", "George Orwell", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro3 = new Libro(103, "Matar a un ruiseñor", "Harper Lee", "J.B. Lippincott & Co.", false, 20123456, new DateTime(2024, 9, 6), new DateTime(2024, 9, 15));
+            Libro libro4 = new Libro(104, "El Gran Gatsby", "F. Scott Fitzgerald", "Scribner", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro5 = new Libro(105, "Orgullo y Prejuicio", "Jane Austen", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro6 = new Libro(106, "Cien Años de Soledad", "Gabriel García Márquez", "Sudamericana", false, 30123457, new DateTime(2024, 9, 20), new DateTime(2024, 10, 5));
+            Libro libro7 = new Libro(107, "Crimen y Castigo", "Fiódor Dostoyevski", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro8 = new Libro(108, "Rayuela", "Julio Cortázar", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro9 = new Libro(109, "Don Quijote de la Mancha", "Miguel de Cervantes", "Castalia", false, 40123458, new DateTime(2024, 9, 25), new DateTime(2024, 10, 10));
+            Libro libro10 = new Libro(110, "La Odisea", "Homero", "Alianza", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro11 = new Libro(111, "La Casa de los Espíritus", "Isabel Allende", "Plaza & Janés", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro12 = new Libro(112, "El Amor en los Tiempos del Cólera", "Gabriel García Márquez", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro13 = new Libro(113, "Los Miserables", "Victor Hugo", "Penguin", false, 50123459, new DateTime(2024, 10, 3), new DateTime(2024, 10, 20));
+            Libro libro14 = new Libro(114, "Drácula", "Bram Stoker", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro15 = new Libro(115, "La Metamorfosis", "Franz Kafka", "Debolsillo", false, 60123450, new DateTime(2024, 10, 1), new DateTime(2024, 10, 2));
 
             //creación de Socios
             Socio socio1 = new Socio("Juan Pérez", 20123456, 987654321, "Calle Rodriguez", 1);
@@ -111,12 +111,14 @@ namespace BibliotecaTPAYP
             int dniSocio = 0;
             DateTime fechaPrestamo = DateTime.MinValue;
             DateTime fechaDevolucion= DateTime.MinValue;
+            //obtener el código del nuevo libro, sumando uno al último libro en la lista de biblioteca
+            Libro ultimoLibro = (Libro)biblioteca.Libros[biblioteca.Libros.Count-1];
+            int ultimoCodigo = ultimoLibro.Codigo;
+            int codigoLibro = ultimoCodigo++;
 
             //preguntas al usuario
             Console.WriteLine();
             Console.WriteLine("### AGREGAR LIBRO ###");
-            Console.Write("Ingrese el código del libro: ");
-            string codigoLibro = Console.ReadLine();
             Console.Write("Ingrese el título del libro: ");
             string tituloLibro = Console.ReadLine();
             Console.Write("Ingrese el autor del libro: ");
@@ -145,8 +147,7 @@ namespace BibliotecaTPAYP
             //creación de libro para guardar en Biblioteca
             Libro libro = new Libro(codigoLibro, tituloLibro, autorLibro, editorialLibro, libroDisponible, dniSocio, fechaPrestamo, fechaDevolucion);
             //guardado de libro en biblioteca
-            biblioteca.agregarLibro(libro);
-            
+            biblioteca.agregarLibro(libro);            
         }
 
         
