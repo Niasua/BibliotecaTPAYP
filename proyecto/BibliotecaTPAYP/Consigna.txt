@@ -1,0 +1,41 @@
+###
+    Una Biblioteca tiene un archivo con la información de los libros para préstamo 
+    que posee y de los socioslectores. De cada libro se almacena su código, título, 
+    autor, editorial y estado (prestado o disponible), dni del socio que lo pidió
+    (0 si no está prestado), fecha del préstamo y fecha de devolución.  
+    De cada socio se registra su dni, nombre y apellido, teléfono, dirección
+    y cantidad de libros prestados.Solo puede pedir un libro prestado por vez.
+    Los libros se prestan por 15 días.Un lector de sala es un sociolector que puede pedir 
+    varios libros para leer en la sala y los devuelve antes de retirarse de la biblioteca. 
+    Se registra la lista de libros que pide para la sala.Se deberá desarrollar una aplicación, 
+    utilizando las clases que considere necesarias, utilizando herencia cuando corresponda. 
+    La aplicación debe proveer, mediante un menú, las siguientes funcionalidades: 
+
+    a-Agregar un libro nuevo a la biblioteca. El sistema le asigna un código.
+
+    b-Eliminar un libro de la biblioteca. Se debe verificar que el libro no esté prestado.
+
+    c-Dar de alta un socio/ socio lector
+
+    d-Dar de baja un socio/ socio lector    
+
+    e-Prestar un libro. Se ingresa el dni del socio solicitante y el código del libro deseado.
+
+        I.Si quien lo pide es un socio lector el sistema debe verificar que el libro esté 
+            disponible y que el socio no tenga ya unlibro prestado.  En caso de éxito se 
+            modifica el estado del libro y se incrementa el contador de libros del socio.
+            Si el libro está prestado o el socio ya tiene otro libro en préstamo, 
+            se debe levantar una excepción indicando que el préstamo no se puede realizar.
+
+        II.Si quien lo pide es un lector de sala, el sistema debe verificar que el libro 
+            esté disponible. En caso de éxito,se modifica el estado del libro, 
+            se incrementa el contador de libros del socio y se agrega el libro a 
+            la lista de libros prestados del socio. Si el libro está prestado se 
+            debe levantar una excepción indicando que el préstamo no se puede realizar.
+
+    f-Devolver un libro. Se modifica el estado del libro y 
+        se modifica la información en el socio (según corresponda en base a si es un socio lector
+        o un lector de sala).
+
+     g-Submenú de impresión: listado de libros prestados; de librosde la biblioteca; de socios
+###
