@@ -34,7 +34,7 @@ namespace BibliotecaTPAYP
             set{this.socios=value;}
         }
 
-        //métodos
+        //métodos para libro
         public void agregarLibro(Libro libro){
             libros.Add(libro);
         }
@@ -59,6 +59,10 @@ namespace BibliotecaTPAYP
             return libros;
         }
 
+
+
+
+        //métodos para socio
          public void agregarSocio(Socio socio){
             socios.Add(socio);
         }

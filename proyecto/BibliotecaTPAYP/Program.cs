@@ -8,21 +8,21 @@ namespace BibliotecaTPAYP
         static void Main(string[] args)
         {
             //creación de libros para aplicación
-            Libro libro1 = new Libro(101, "El Principito", "Antoine de Saint-Exupéry", "Salamandra", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro2 = new Libro(102, "1984", "George Orwell", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro3 = new Libro(103, "Matar a un ruiseñor", "Harper Lee", "J.B. Lippincott & Co.", false, 20123456, new DateTime(2024, 9, 6), new DateTime(2024, 9, 15));
-            Libro libro4 = new Libro(104, "El Gran Gatsby", "F. Scott Fitzgerald", "Scribner", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro5 = new Libro(105, "Orgullo y Prejuicio", "Jane Austen", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro6 = new Libro(106, "Cien Años de Soledad", "Gabriel García Márquez", "Sudamericana", false, 30123457, new DateTime(2024, 9, 20), new DateTime(2024, 10, 5));
-            Libro libro7 = new Libro(107, "Crimen y Castigo", "Fiódor Dostoyevski", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro8 = new Libro(108, "Rayuela", "Julio Cortázar", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro9 = new Libro(109, "Don Quijote de la Mancha", "Miguel de Cervantes", "Castalia", false, 40123458, new DateTime(2024, 9, 25), new DateTime(2024, 10, 10));
-            Libro libro10 = new Libro(110, "La Odisea", "Homero", "Alianza", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro11 = new Libro(111, "La Casa de los Espíritus", "Isabel Allende", "Plaza & Janés", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro12 = new Libro(112, "El Amor en los Tiempos del Cólera", "Gabriel García Márquez", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro13 = new Libro(113, "Los Miserables", "Victor Hugo", "Penguin", false, 50123459, new DateTime(2024, 10, 3), new DateTime(2024, 10, 20));
-            Libro libro14 = new Libro(114, "Drácula", "Bram Stoker", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
-            Libro libro15 = new Libro(115, "La Metamorfosis", "Franz Kafka", "Debolsillo", false, 60123450, new DateTime(2024, 10, 1), new DateTime(2024, 10, 2));
+            Libro libro1 = new Libro(1, "El Principito", "Antoine de Saint-Exupéry", "Salamandra", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro2 = new Libro(2, "1984", "George Orwell", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro3 = new Libro(3, "Matar a un ruiseñor", "Harper Lee", "J.B. Lippincott & Co.", false, 20123456, new DateTime(2024, 9, 6), new DateTime(2024, 9, 15));
+            Libro libro4 = new Libro(4, "El Gran Gatsby", "F. Scott Fitzgerald", "Scribner", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro5 = new Libro(5, "Orgullo y Prejuicio", "Jane Austen", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro6 = new Libro(6, "Cien Años de Soledad", "Gabriel García Márquez", "Sudamericana", false, 30123457, new DateTime(2024, 9, 20), new DateTime(2024, 10, 5));
+            Libro libro7 = new Libro(7, "Crimen y Castigo", "Fiódor Dostoyevski", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro8 = new Libro(8, "Rayuela", "Julio Cortázar", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro9 = new Libro(9, "Don Quijote de la Mancha", "Miguel de Cervantes", "Castalia", false, 40123458, new DateTime(2024, 9, 25), new DateTime(2024, 10, 10));
+            Libro libro10 = new Libro(0, "La Odisea", "Homero", "Alianza", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro11 = new Libro(11, "La Casa de los Espíritus", "Isabel Allende", "Plaza & Janés", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro12 = new Libro(12, "El Amor en los Tiempos del Cólera", "Gabriel García Márquez", "Sudamericana", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro13 = new Libro(13, "Los Miserables", "Victor Hugo", "Penguin", false, 50123459, new DateTime(2024, 10, 3), new DateTime(2024, 10, 20));
+            Libro libro14 = new Libro(14, "Drácula", "Bram Stoker", "Penguin", true, 0, DateTime.MinValue, DateTime.MinValue);
+            Libro libro15 = new Libro(15, "La Metamorfosis", "Franz Kafka", "Debolsillo", false, 60123450, new DateTime(2024, 10, 1), new DateTime(2024, 10, 2));
 
             //creación de Socios
             Socio socio1 = new Socio("Juan Pérez", 20123456, 987654321, "Calle Rodriguez", 1);
@@ -93,6 +93,12 @@ namespace BibliotecaTPAYP
                     case 2:
                         eliminarLibro(biblioteca);
                         break;
+                    case 3:
+                        altaSocio(biblioteca);
+                        break;
+                    case 4:
+                        bajaSocio(biblioteca);
+                        break;
                 }
 
                 menuPrincipal();
@@ -133,30 +139,39 @@ namespace BibliotecaTPAYP
             string editorialLibro = Console.ReadLine();
             Console.Write("¿Está disponible?: ");
             string preguntaDisponibilidad = Console.ReadLine();
+            
             //asegurarse que ingrese "si" o "no"
-            while(preguntaDisponibilidad.ToLower() == "si" | preguntaDisponibilidad.ToLower() == "no" ){
-                if(preguntaDisponibilidad.ToLower() == "no"){
-                    libroDisponible = false;
-                    break;
-                } else if (preguntaDisponibilidad.ToLower() == "si"){
-                    libroDisponible = true;
-                    break;
-                } else {
-                    Console.WriteLine("Ingrese 'si' o 'no'");
-                    Console.Write("¿Está disponible?: ");
-                    preguntaDisponibilidad = Console.ReadLine();
-                }
+            while(!preguntaDisponibilidad.ToLower().Equals("si") && !preguntaDisponibilidad.ToLower().Equals("no") ){
+                Console.WriteLine("Ingrese 'si' o 'no'");
+                Console.Write("¿Está disponible?: ");
+                preguntaDisponibilidad = Console.ReadLine();
+            } 
+            // estableciendo la disponibilidad del libro
+            if(preguntaDisponibilidad.ToLower().Equals("si")){
+                libroDisponible = false;
+            } else if (preguntaDisponibilidad.ToLower().Equals("no")){
+                libroDisponible = true;
             }
-
             //si el libro no está disponible, entonces se llena con los datos del socio que lo posee
             if (!libroDisponible)
             {
                 Console.Write("Ingrese dni del socio: ");
                 dniSocio = int.Parse(Console.ReadLine());
-                Console.Write("Ingrese la fecha de préstamo (AAAA/M/D): ");
-                fechaPrestamo = DateTime.Parse(Console.ReadLine());
-                Console.Write("Ingrese la fecha de devolución (AAAA/M/D): ");
-                fechaDevolucion = DateTime.Parse(Console.ReadLine());
+                Console.Write("Ingrese el año del préstamo: ");
+                int añoPrestamo = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese el mes del préstamo (1-12): ");
+                int mesPrestamo = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese el dia del préstamo: ");
+                int diaPrestamo = int.Parse(Console.ReadLine());
+                fechaPrestamo = new DateTime(añoPrestamo, mesPrestamo, diaPrestamo);
+                Console.Write("Ingrese el año de la devolución: "); 
+                int añoDevolucion = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese el mes del devolución (1-12): ");
+                int mesDevolucion = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese el dia de la devolución: ");
+                int diaDevolucion = int.Parse(Console.ReadLine());
+                fechaDevolucion = new DateTime(añoDevolucion, mesDevolucion, diaDevolucion);
+
                 //verificar que la fecha de devolución sea mayor que la de préstamo
                 while(fechaPrestamo>fechaDevolucion){
                     Console.WriteLine("¡¡¡ La fecha de devolución debe ser mayor a la fecha de préstamo !!!");
@@ -167,7 +182,13 @@ namespace BibliotecaTPAYP
             //creación de libro para guardar en Biblioteca
             Libro libro = new Libro(codigoLibro, tituloLibro, autorLibro, editorialLibro, libroDisponible, dniSocio, fechaPrestamo, fechaDevolucion);
             //guardado de libro en biblioteca
-            biblioteca.agregarLibro(libro);            
+            biblioteca.agregarLibro(libro);      
+            Console.WriteLine();
+            Console.WriteLine("¡¡¡ Libro agregado exitosamente !!!");
+            Console.WriteLine();
+            volviendoAlMenuPrincipal();
+
+
         }
 
         static void eliminarLibro(Biblioteca biblioteca){
@@ -175,14 +196,128 @@ namespace BibliotecaTPAYP
             Console.WriteLine("### ELIMINAR LIBRO ###");
             Console.Write("Ingrese el código del libro a eliminar: ");
             int codigoLibro = int.Parse(Console.ReadLine());
-            Libro libroAEliminar = biblioteca.verLibro(codigoLibro);
+            Libro libroAEliminar = biblioteca.verLibro(codigoLibro-1); //los código de libro arrancan de 1
             if(!libroAEliminar.Estado){
                 Console.WriteLine("¡¡¡ Ese libro se encuentra prestado !!!");
             } else {
                 biblioteca.eliminarLibro(libroAEliminar);
             }
+            Console.WriteLine();
+            Console.WriteLine("¡¡¡ Libro eliminado exitosamente !!!");
+            Console.WriteLine();
+            volviendoAlMenuPrincipal();
+            
+        }
+        
+        static void altaSocio(Biblioteca biblioteca){
+            Console.WriteLine();
+            Console.WriteLine("### DAR ALTA A SOCIO ###");
+            Console.WriteLine("1. Socio");
+            Console.WriteLine("2. Socio-lector");
+            Console.WriteLine();
+            Console.WriteLine("Elija una opción: ");
+            int opcion = int.Parse(Console.ReadLine());
+            if(opcion == 1){
+                Console.Write("Ingrese nombre completo del socio: ");
+                string nombreApellido = Console.ReadLine();
+                Console.Write("Ingrese dni del socio: ");
+                int dni = int.Parse(Console.ReadLine());
+                //recorrer la lista de socios de la biblioteca para verificar
+                //que no se repita el DNI
+                foreach (Socio s in biblioteca.Socios)
+                {
+                    if(s.Dni == dni)
+                    {
+                        Console.WriteLine("Ya hay un socio registrado con ese dni");
+                        break;
+                    }
+                }
+                Console.Write("Ingrese el teléfono del socio: ");
+                int telefono = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese la dirección del socio: ");
+                string direccion = Console.ReadLine();
+                Console.Write("Ingrese la cantidad de libros que el socio posee actualmente: ");
+                int cantidadLibros = int.Parse(Console.ReadLine());
+
+                Socio socio = new Socio(nombreApellido, dni, telefono, direccion, cantidadLibros);
+
+                biblioteca.agregarSocio(socio);
+            } else if (opcion == 2){
+                Console.Write("Ingrese nombre completo del socio-lector: ");
+                string nombreApellido = Console.ReadLine();
+                Console.Write("Ingrese dni del socio-lector: ");
+                int dni = int.Parse(Console.ReadLine());
+                foreach (SocioLector sl in biblioteca.Socios)
+                {
+                    if(sl.Dni == dni)
+                    {
+                        Console.WriteLine("Ya hay un socio registrado con ese dni");
+                        volviendoAlMenuPrincipal();
+                        break;
+                    }
+                }
+                Console.Write("Ingrese el teléfono del socio-lector: ");
+                int telefono = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese la dirección del socio-lector: ");
+                string direccion = Console.ReadLine();
+                Console.Write("Ingrese la cantidad de libros que el socio-lector posee actualmente: ");
+                int cantidadLibros = int.Parse(Console.ReadLine());
+
+                SocioLector socioLector = new SocioLector(nombreApellido, dni, telefono, direccion, cantidadLibros);
+
+                biblioteca.agregarSocio(socioLector);
+            }
+            Console.WriteLine();
+            Console.WriteLine("¡¡¡ Socio dado de alta exitosamente !!!");
+            Console.WriteLine();
+            volviendoAlMenuPrincipal();
         }
 
+        static void bajaSocio(Biblioteca biblioteca){
+            Console.WriteLine();
+            Console.WriteLine("### DAR BAJA A SOCIO ###");
+            Console.WriteLine();
+            Console.WriteLine("Ingrese el dni del socio: ");
+            int dni = int.Parse(Console.ReadLine());
+            foreach (Socio s in biblioteca.Socios)
+            {
+                if (s.Dni == dni)
+                {
+                    biblioteca.eliminarSocio(s);
+                    Console.WriteLine();
+                    Console.WriteLine("¡¡¡ Socio dado de baja exitosamente !!!");
+                    Console.WriteLine();
+                    volviendoAlMenuPrincipal(); 
+                    break;                
+                }
+            }
+                    Console.WriteLine();
+                    Console.WriteLine("¡¡¡ No hay ningún socio asociado con ese DNI !!!");
+                    Console.WriteLine();
+                    volviendoAlMenuPrincipal(); 
+
+        }
+
+        //función para dar efecto de carga
+        static void volviendoAlMenuPrincipal(){
+            Console.Write("Volviendo al menú principal");
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+        }
         
 
     }

@@ -12,3 +12,18 @@ C:\Users\Nico\Desktop\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\refint\Bibliotec
 C:\Users\Nico\Desktop\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.pdb
 C:\Users\Nico\Desktop\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.genruntimeconfig.cache
 C:\Users\Nico\Desktop\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\ref\BibliotecaTPAYP.dll
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\bin\Debug\net8.0\BibliotecaTPAYP.exe
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\bin\Debug\net8.0\BibliotecaTPAYP.deps.json
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\bin\Debug\net8.0\BibliotecaTPAYP.runtimeconfig.json
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\bin\Debug\net8.0\BibliotecaTPAYP.dll
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\bin\Debug\net8.0\BibliotecaTPAYP.pdb
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.AssemblyInfoInputs.cache
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.AssemblyInfo.cs
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.csproj.CoreCompileInputs.cache
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.sourcelink.json
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.dll
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\refint\BibliotecaTPAYP.dll
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.pdb
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\BibliotecaTPAYP.genruntimeconfig.cache
+C:\Users\Nico\Desktop\proyecto\Proyecto Biblioteca\BibliotecaTPAYP\proyecto\BibliotecaTPAYP\obj\Debug\net8.0\ref\BibliotecaTPAYP.dll
