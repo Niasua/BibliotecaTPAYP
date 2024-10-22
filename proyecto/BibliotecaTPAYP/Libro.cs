@@ -6,28 +6,28 @@ namespace BibliotecaTPAYP
     {
         // atributos
         private string titulo, autor, editorial;
-        private bool estado;
-        private int dniSocio, codigo;
+        private bool estado=true;
+        private int dniSocio, codigoLibro;
+        private static int contadorCodigo = 1;
         private DateTime fechaPrestamo, fechaDevolucion;
 
         // constructores
-        public Libro(int codigo, string titulo, string autor,string editorial,
-         bool estado, int dniSocio, DateTime fechaPrestamo, DateTime fechaDevolucion){
-            this.codigo=codigo;
+        public Libro( string titulo, string autor,string editorial){
+            this.codigoLibro=contadorCodigo++;
             this.titulo=titulo;
             this.autor=autor;
             this.editorial=editorial;
-            this.estado=estado;
-            this.dniSocio=dniSocio;
+            this.estado=true;
+            /*this.dniSocio=dniSocio;
             this.fechaPrestamo=fechaPrestamo;
-            this.fechaDevolucion=fechaDevolucion;
+            this.fechaDevolucion=fechaDevolucion;*/
         }
 
 
         // propiedades
         public int Codigo{
-            get{return this.codigo;}
-            set{this.codigo = value;}
+            get{return this.codigoLibro;}
+            set{this.codigoLibro = value;}
         }
         public string Titulo{
             get{return this.titulo;}

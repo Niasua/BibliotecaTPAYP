@@ -35,27 +35,27 @@ namespace BibliotecaTPAYP
         }
 
         //métodos para libro
-        public void agregarLibro(Libro libro){
+        public void AgregarLibro(Libro libro){
             libros.Add(libro);
         }
 
-        public void eliminarLibro(Libro libro){
+        public void EliminarLibro(Libro libro){
             libros.Remove(libro);
         }
 
-        public int cantidadLibros(){
+        public int CantidadLibros(){
             return libros.Count;
         }
 
-        public bool existeLibro(Libro libro){
+        public bool ExisteLibro(Libro libro){
             return libros.Contains(libro);
         }
 
-        public Libro verLibro(int i){
+        public Libro VerLibro(int i){
             return (Libro)libros[i];
         }
 
-        public ArrayList todosLibros(){
+        public ArrayList TodosLibros(){
             return libros;
         }
 
@@ -63,27 +63,27 @@ namespace BibliotecaTPAYP
 
 
         //métodos para socio
-         public void agregarSocio(Socio socio){
+         public void AgregarSocio(Socio socio){
             socios.Add(socio);
         }
 
-        public void eliminarSocio(Socio socio){
+        public void EliminarSocio(Socio socio){
             socios.Remove(socio);
         }
 
-        public int cantidadSocios(){
+        public int CantidadSocios(){
             return socios.Count;
         }
 
-        public bool existeSocio(Socio socio){
+        public bool ExisteSocio(Socio socio){
             return socios.Contains(socio);
         }
 
-        public Socio verSocio(int i){
+        public Socio VerSocio(int i){
             return (Socio)socios[i];
         }
 
-        public ArrayList todosSocios(){
+        public ArrayList TodosSocios(){
             return socios;
         }
     }
