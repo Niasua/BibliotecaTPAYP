@@ -29,7 +29,7 @@ namespace BibliotecaTPAYP
             Socio socio1 = new Socio("Juan Pérez", 20123456, 987654321, "Calle Rodriguez", 1);
             Socio socio2 = new Socio("Ana López", 30123457, 123456789, "Av. Corrientes 456", 1);
             Socio socio3 = new Socio("María García", 40123458, 234567890, "Calle Sol 789", 0);
-            Socio socio4 = new Socio("Emilse Brizuela", 50123459, 345678901, "Av. Libertad 101", 1);
+            Socio socio4 = new Socio("Emilse Brizuela", 46009054, 345678901, "Av. Libertad 101", 1);
             Socio socio5 = new Socio("Laura Martínez", 60123450, 456789012, "Calle Luna 202", 1);
             Socio socio6 = new Socio("Carlos Sánchez", 70123451, 567890123, "Av. Colón 303", 1);
             Socio socio7 = new Socio("Lucía Romero", 80123452, 678901234, "Calle 25 de Mayo 404", 0);
@@ -671,7 +671,7 @@ namespace BibliotecaTPAYP
                     else
                     {
                         Console.WriteLine("Tipo de socio: Socio");
-                        if (socioEncontrado.LibroPrestado != null)
+                        if (socioEncontrado.LibroPrestado != null && !socioEncontrado.LibroPrestado.Estado)
                         {
                             Console.WriteLine("Libro En prestamo: " + socioEncontrado.LibroPrestado.Titulo);
                         }
@@ -682,8 +682,9 @@ namespace BibliotecaTPAYP
                     }
                 }
 
-                volviendoAlMenuPrincipal();
                 Console.WriteLine();
+                Console.WriteLine("Presione una tecla para volver al menú...");
+                Console.ReadKey();
                 MenuPrincipal(biblioteca);
             }
 
@@ -765,74 +766,80 @@ namespace BibliotecaTPAYP
 
                 // Buscar el libro en la biblioteca
                 Libro libroEncontrado = null;
-                int i = 0;
-                while (i < biblioteca.Libros.Count)
+                for (int i = 0; i < biblioteca.Libros.Count; i++)
                 {
                     Libro libro = (Libro)biblioteca.Libros[i];
-                    if (libro.Codigo == codigoLibro && libro.Estado == true) //verifica que el libro exsite y este disponible
+                    if (libro.Codigo == codigoLibro && libro.Estado == true) // Verifica que el libro existe y esté disponible
                     {
                         libroEncontrado = libro;
-                        break;
+                        break; // Sale del ciclo cuando encuentra el libro
                     }
-                    i++;
                 }
 
                 if (libroEncontrado == null)
                 {
                     Console.WriteLine("El libro no está disponible o no existe en la biblioteca.");
+                    volviendoAlMenuPrincipal();
                     return;
                 }
 
-                // Buscar al socio en la biblioteca
-                Socio socioEncontrado = null;
-                i = 0;
-                while (i < biblioteca.Socios.Count)
+                bool socioEncontrado = false;
+                for (int l = 0; l < biblioteca.Socios.Count; l++)
                 {
-                    Socio socio = (Socio)biblioteca.Socios[i];
+                    Socio socio = (Socio)biblioteca.Socios[l];
                     if (socio.Dni == dniSocio)
                     {
-                        socioEncontrado = socio;
+                        socioEncontrado = true;
+
+                        // Manejo del tipo Socio común
+                        if (socio is Socio socioComun)
+                        {
+                            if (socioComun.LibroPrestado == null || socioComun.LibroPrestado.Estado == false)
+                            {
+                                socioComun.CantLibrosPrestado++;
+                                socioComun.LibroPrestado = libroEncontrado;
+                                libroEncontrado.Estado = false;
+                                libroEncontrado.DniSocio = dniSocio;
+                                libroEncontrado.FechaPrestamo = DateTime.Now;
+                                libroEncontrado.FechaDevolucion = DateTime.Now.AddDays(15);
+                                Console.WriteLine("Libro prestado exitosamente al Socio.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("El socio ya tiene un libro prestado y no puede tomar otro.");
+                            }
+                        }
+                        // Manejo del tipo SocioLector
+                        else if (socio is SocioLector socioLector)
+                        {
+                            if (!socioLector.existeLibro(libroEncontrado))
+                            {
+                                socioLector.agregarLibro(libroEncontrado);
+                                libroEncontrado.Estado = false;
+                                libroEncontrado.DniSocio = dniSocio;
+                                libroEncontrado.FechaPrestamo = DateTime.Now;
+                                socioLector.CantLibrosPrestado++;
+                                Console.WriteLine("Libro prestado exitosamente al Socio Lector.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("El socio ya tiene este libro prestado.");
+                            }
+                        }
+                        volviendoAlMenuPrincipal();
                         break;
                     }
-                    i++;
                 }
 
-                if (socioEncontrado == null)
+                if (!socioEncontrado)
                 {
-                    Console.WriteLine("No existe ningún socio asociado con ese DNI.");
-                    return;
+                    Console.WriteLine("No existe un Socio con ese DNI.");
+                    volviendoAlMenuPrincipal();
                 }
-
-                // Verificar y prestar el libro
-                if (socioEncontrado is SocioLector socioLector) //si el socio es socioLector
-                {
-                    socioLector.agregarLibro(libroEncontrado); // Agregar a la lista de libros prestados de SocioLector 
-                    libroEncontrado.Estado = false;
-                    libroEncontrado.DniSocio = dniSocio;
-                    libroEncontrado.FechaPrestamo = DateTime.Now;
-                    Console.WriteLine("Libro prestado exitosamente al Socio Lector.");
-                }
-                else
-                {
-                    if (socioEncontrado.LibroPrestado == null) // si el socio es socio normal
-                    {
-                        socioEncontrado.PrestarLibro(libroEncontrado);
-                        libroEncontrado.Estado = false;
-                        libroEncontrado.DniSocio = dniSocio;
-                        libroEncontrado.FechaPrestamo = DateTime.Now;
-                        libroEncontrado.FechaDevolucion = DateTime.Now.AddDays(15); // Fecha de devolución incrementada en 15 días
-                        Console.WriteLine("Libro prestado exitosamente al Socio.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("El socio ya tiene un libro prestado y no puede tomar otro.");
-                    }
-                }
-
-                volviendoAlMenuPrincipal();
-                Console.WriteLine();
-                MenuPrincipal(biblioteca);
             }
+
+
+
 
             static void DevolverLibro(Biblioteca biblioteca)
             {
@@ -905,7 +912,7 @@ namespace BibliotecaTPAYP
                 {
                     if (socioEncontrado.LibroPrestado != null && socioEncontrado.LibroPrestado.Codigo == codigoLibro)
                     {
-                        socioEncontrado.DevolverLibro();
+                        socioEncontrado.CantLibrosPrestado--;
                         libroEncontrado.Estado = true;
                         libroEncontrado.DniSocio = 0;
                         libroEncontrado.FechaPrestamo = DateTime.MinValue;

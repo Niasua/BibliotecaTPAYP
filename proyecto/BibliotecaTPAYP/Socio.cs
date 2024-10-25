@@ -52,17 +52,5 @@ namespace BibliotecaTPAYP
             get { return this.libroPrestado; }
             set { this.libroPrestado = value; }
         }
-        // Método para prestar un libro
-        public void PrestarLibro(Libro libro)
-        {
-            this.libroPrestado = libro;
-            this.cantLibrosPrestado++;
-
-        }
-        public void DevolverLibro()
-        {
-            this.libroPrestado = null;
-            this.cantLibrosPrestado--;
-        }
     }
 }
