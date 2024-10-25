@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks.Dataflow;
 
 namespace BibliotecaTPAYP
 {
