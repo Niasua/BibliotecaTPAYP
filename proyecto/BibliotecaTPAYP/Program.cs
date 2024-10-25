@@ -838,9 +838,6 @@ namespace BibliotecaTPAYP
                 }
             }
 
-
-
-
             static void DevolverLibro(Biblioteca biblioteca)
             {
                 Console.WriteLine();
@@ -853,8 +850,7 @@ namespace BibliotecaTPAYP
 
                 // Buscar el libro en la biblioteca
                 Libro libroEncontrado = null;
-                int i = 0;
-                while (i < biblioteca.Libros.Count)
+                for (int i = 0; i < biblioteca.Libros.Count; i++)
                 {
                     Libro libro = (Libro)biblioteca.Libros[i];
                     if (libro.Codigo == codigoLibro && libro.DniSocio == dniSocio)
@@ -862,19 +858,18 @@ namespace BibliotecaTPAYP
                         libroEncontrado = libro;
                         break;
                     }
-                    i++;
                 }
 
                 if (libroEncontrado == null)
                 {
                     Console.WriteLine("El libro no está prestado por el socio o no existe en la biblioteca.");
+                    volviendoAlMenuPrincipal();
                     return;
                 }
 
                 // Buscar al socio en la biblioteca
                 Socio socioEncontrado = null;
-                i = 0;
-                while (i < biblioteca.Socios.Count)
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
                 {
                     Socio socio = (Socio)biblioteca.Socios[i];
                     if (socio.Dni == dniSocio)
@@ -882,54 +877,59 @@ namespace BibliotecaTPAYP
                         socioEncontrado = socio;
                         break;
                     }
-                    i++;
                 }
 
                 if (socioEncontrado == null)
                 {
                     Console.WriteLine("No existe ningún socio asociado con ese DNI.");
+                    volviendoAlMenuPrincipal();
                     return;
                 }
 
                 // Verificar y devolver el libro
-                if (socioEncontrado is SocioLector socioLector)
+                if (socioEncontrado.GetType() == typeof(SocioLector))
                 {
+                    SocioLector socioLector = (SocioLector)socioEncontrado;
                     if (socioLector.existeLibro(libroEncontrado))
                     {
-                        socioLector.eliminarLibro(libroEncontrado); // Eliminar del ArrayList
-                        libroEncontrado.Estado = true;
-                        libroEncontrado.DniSocio = 0;
-                        libroEncontrado.FechaPrestamo = DateTime.MinValue;
-                        libroEncontrado.FechaDevolucion = DateTime.MinValue;
+                        socioLector.eliminarLibro(libroEncontrado); // Se elimina del arraylist
                         Console.WriteLine("Libro devuelto exitosamente por el Socio Lector.");
                     }
                     else
                     {
                         Console.WriteLine("El libro no se encontró en la lista de libros prestados por el Socio Lector.");
+                        volviendoAlMenuPrincipal();
+                        return;
                     }
+                }
+                else if (socioEncontrado.LibroPrestado != null && socioEncontrado.LibroPrestado.Codigo == codigoLibro)
+                {
+                    if (socioEncontrado.CantLibrosPrestado > 0) {
+                        socioEncontrado.CantLibrosPrestado--;
+                    }
+                    Console.WriteLine("Libro devuelto exitosamente por el Socio.");
                 }
                 else
                 {
-                    if (socioEncontrado.LibroPrestado != null && socioEncontrado.LibroPrestado.Codigo == codigoLibro)
-                    {
-                        socioEncontrado.CantLibrosPrestado--;
-                        libroEncontrado.Estado = true;
-                        libroEncontrado.DniSocio = 0;
-                        libroEncontrado.FechaPrestamo = DateTime.MinValue;
-                        libroEncontrado.FechaDevolucion = DateTime.MinValue;
-                        Console.WriteLine("Libro devuelto exitosamente por el Socio.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("El socio no tiene ese libro prestado.");
-                    }
+                    Console.WriteLine("El socio no tiene ese libro prestado.");
+                    volviendoAlMenuPrincipal();
+                    return;
                 }
 
+                // Restablecer el estado del libro
+                libroEncontrado.Estado = true;
+                libroEncontrado.DniSocio = 0;
+                libroEncontrado.FechaPrestamo = DateTime.MinValue;
+                libroEncontrado.FechaDevolucion = DateTime.MinValue;
+
                 volviendoAlMenuPrincipal();
-                Console.WriteLine();
-                MenuPrincipal(biblioteca);
             }
 
+
+
+
+
+            
             //función para dar efecto de carga
             static void volviendoAlMenuPrincipal()
             {
