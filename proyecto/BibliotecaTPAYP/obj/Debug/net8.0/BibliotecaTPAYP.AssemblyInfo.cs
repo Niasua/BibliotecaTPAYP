@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BibliotecaTPAYP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8f4cdefe8b46b6589d2e8f85d733daf61fc159f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95bc1cac1b629c93d90c163c5ce4b61ae9fa4d67")]
 [assembly: System.Reflection.AssemblyProductAttribute("BibliotecaTPAYP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BibliotecaTPAYP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

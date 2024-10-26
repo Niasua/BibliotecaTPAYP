@@ -160,8 +160,9 @@ namespace BibliotecaTPAYP
                     Console.WriteLine("Seleccione una opción del menú:\n");
                     Console.WriteLine("1. Métodos de libros");
                     Console.WriteLine("2. Métodos de socios");
-                    Console.WriteLine("3. Pedir prestado un Libro");
-                    Console.WriteLine("4. Devolver un Libro");
+                    Console.WriteLine("3. Métodos de socio lectores");
+                    Console.WriteLine("4. Pedir prestado un Libro");
+                    Console.WriteLine("5. Devolver un Libro");
                     Console.WriteLine("0. Salir");
                     opcion = int.Parse(Console.ReadLine());
                     // agregar excepcion
@@ -174,9 +175,12 @@ namespace BibliotecaTPAYP
                             MenuSocios(biblioteca);
                             break;
                         case 3:
-                            PrestarLibro(biblioteca);
+                            MenuSocioLectores(biblioteca);
                             break;
                         case 4:
+                            PrestarLibro(biblioteca);
+                            break;
+                        case 5:
                             DevolverLibro(biblioteca);
                             break;
                         case 0:
@@ -270,6 +274,52 @@ namespace BibliotecaTPAYP
                             break;
                         case 6:
                             TodosSocios(biblioteca);
+                            break;
+                        case 0:
+                            Console.WriteLine("Volviendo al menú principal...");
+                            break;
+                        default:
+                            Console.WriteLine("Opción incorrecta");
+                            break;
+                    }
+                } while (opcion != 0);
+            }
+
+            static void MenuSocioLectores(Biblioteca biblioteca)
+            {
+                int opcion;
+                do
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Menú de socio lectores:\n");
+                    Console.WriteLine("1. Agregar libro");
+                    Console.WriteLine("2. Eliminar libro");
+                    Console.WriteLine("3. Cantidad de libros prestados");
+                    Console.WriteLine("4. Existe el libro? ");
+                    Console.WriteLine("5. Ver libro prestado");
+                    Console.WriteLine("6. Listar todos los libros");
+                    Console.WriteLine("0. Volver al menú principal");
+                    opcion = int.Parse(Console.ReadLine());
+                    //agregar excepcion
+                    switch (opcion)
+                    {
+                        case 1:
+                            AgregarLibroPrestado(biblioteca);
+                            break;
+                        case 2:
+                            EliminarLibroPrestado(biblioteca);
+                            break;
+                        case 3:
+                            CantidadLibrosPrestados(biblioteca);
+                            break;
+                        case 4:
+                            ExisteLibroPrestado(biblioteca);
+                            break;
+                        case 5:
+                            VerLibroPrestado(biblioteca);
+                            break;
+                        case 6:
+                            TodosLibrosPrestados(biblioteca);
                             break;
                         case 0:
                             Console.WriteLine("Volviendo al menú principal...");
@@ -751,6 +801,313 @@ namespace BibliotecaTPAYP
                 Console.WriteLine();
                 MenuPrincipal(biblioteca);
             }
+
+            static void AgregarLibroPrestado(Biblioteca biblioteca)
+            {
+                Console.WriteLine();
+                Console.WriteLine("### AGREGAR LIBRO A SOCIO LECTOR###");
+                Console.WriteLine();
+                Console.Write("Ingrese el dni del socio: ");
+                int dniSocio = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese código del libro: ");
+                int codigoLibro = int.Parse(Console.ReadLine());
+
+                // Verificar si existe el socio lector
+                SocioLector socioLectorEncontrado = null;
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
+                {
+                    if (biblioteca.Socios[i].GetType() == typeof(SocioLector))
+                    {
+                        SocioLector socioLector = (SocioLector)biblioteca.Socios[i];
+                        if (socioLector.Dni == dniSocio)
+                        {
+                            socioLectorEncontrado = socioLector;
+                            break; // Sale del ciclo si encuentra al socio
+                        }
+                    }
+                }
+
+                if (socioLectorEncontrado == null)
+                {
+                    Console.WriteLine("No se encontró al Socio Lector.");
+                    volviendoAlMenuPrincipal();
+                    MenuPrincipal(biblioteca);
+                    return; // Sale del método si no encuentra al socio
+                }
+
+                // Buscar el libro en la biblioteca
+                Libro libroAEncontrar = null;
+                for (int j = 0; j < biblioteca.Libros.Count; j++)
+                {
+                    Libro libro = (Libro)biblioteca.Libros[j];
+                    if (libro.Codigo == codigoLibro)
+                    {
+                        if (libro.DniSocio != dniSocio) // Verifica que no esté prestado al mismo socio
+                        {
+                            libroAEncontrar = libro;
+                            break; // Sale del ciclo si encuentra el libro
+                        }
+                        else
+                        {
+                            Console.WriteLine("El socio ya tiene este libro prestado.");
+                            volviendoAlMenuPrincipal();
+                            MenuPrincipal(biblioteca);
+                            return; // Sale del método si el libro ya está prestado al socio
+                        }
+                    }
+                }
+
+                if (libroAEncontrar == null)
+                {
+                    Console.WriteLine("No se encontró el libro en la biblioteca.");
+                }
+                else
+                {
+                    socioLectorEncontrado.agregarLibro(libroAEncontrar); 
+                    Console.WriteLine("Libro agregado exitosamente al Socio Lector.");
+                }
+
+                volviendoAlMenuPrincipal();
+                Console.WriteLine();
+                MenuPrincipal(biblioteca);
+            }
+
+            static void EliminarLibroPrestado(Biblioteca biblioteca)
+            {
+                Console.WriteLine();
+                Console.WriteLine("### ELIMINAR LIBRO PRESTADO ###");
+                Console.WriteLine();
+                Console.Write("Ingrese el DNI del socio: ");
+                int dniSocio = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese el código del libro: ");
+                int codigoLibro = int.Parse(Console.ReadLine());
+
+                // Buscar al socio lector
+                SocioLector socioLectorEncontrado = null;
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
+                {
+                    if (biblioteca.Socios[i].GetType() == typeof(SocioLector))
+                    {
+                        SocioLector socioLector = (SocioLector)biblioteca.Socios[i];
+                        if (socioLector.Dni == dniSocio)
+                        {
+                            socioLectorEncontrado = socioLector;
+                            break; // Sale del ciclo si encuentra al socio
+                        }
+                    }
+                }
+
+                if (socioLectorEncontrado == null)
+                {
+                    Console.WriteLine("No se encontró al Socio Lector.");
+                    volviendoAlMenuPrincipal();
+                    MenuPrincipal(biblioteca);
+                    return; // se va del método si no encuentra al socio
+                }
+
+                // busca el libro en la lista de libros prestados del socio
+                Libro libroAEliminar = null;
+                for (int j = 0; j < socioLectorEncontrado.LibrosPedidos.Count; j++)
+                {
+                    Libro libro = (Libro) socioLectorEncontrado.LibrosPedidos[j];
+                    if (libro.Codigo == codigoLibro)
+                    {
+                        libroAEliminar = libro;
+                        break; // se va del ciclo si encuentra el libro
+                    }
+                }
+
+                if (libroAEliminar == null)
+                {
+                    Console.WriteLine("El libro no está en la lista de libros prestados por el Socio Lector.");
+                }
+                else
+                {
+                    socioLectorEncontrado.eliminarLibro(libroAEliminar); 
+                    libroAEliminar.Estado = true; 
+                    libroAEliminar.DniSocio = 0; 
+                    libroAEliminar.FechaPrestamo = DateTime.MinValue; 
+                    libroAEliminar.FechaDevolucion = DateTime.MinValue; 
+                    Console.WriteLine("Libro devuelto exitosamente por el Socio Lector.");
+                }
+
+                volviendoAlMenuPrincipal();
+                Console.WriteLine();
+                MenuPrincipal(biblioteca);
+            }
+
+            static void CantidadLibrosPrestados(Biblioteca biblioteca)
+            {
+                Console.WriteLine();
+                Console.WriteLine("### CANTIDAD DE LIBROS PRESTADOS ###");
+                Console.WriteLine();
+                Console.Write("Ingrese el DNI del socio: ");
+                int dniSocio = int.Parse(Console.ReadLine());
+
+                // se busca al socio lector
+                SocioLector socioLectorEncontrado = null;
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
+                {
+                    if (biblioteca.Socios[i].GetType() == typeof(SocioLector))
+                    {
+                        SocioLector socioLector = (SocioLector)biblioteca.Socios[i];
+                        if (socioLector.Dni == dniSocio)
+                        {
+                            socioLectorEncontrado = socioLector;
+                            break; // se va del ciclo si encuentra al socio
+                        }
+                    }
+                }
+
+                if (socioLectorEncontrado == null)
+                {
+                    Console.WriteLine("No se encontró al Socio Lector.");
+                }
+                else
+                {
+                    // se muestra la cantidad de libros prestados
+                    Console.WriteLine("El Socio Lector tiene {0} libro(s) prestado(s).", socioLectorEncontrado.CantLibrosPrestado);
+                }
+
+                volviendoAlMenuPrincipal();
+                Console.WriteLine();
+                MenuPrincipal(biblioteca);
+            }
+
+            static void ExisteLibroPrestado(Biblioteca biblioteca)
+            {
+                Console.WriteLine();
+                Console.WriteLine("### EXISTE LIBRO PRESTADO ###");
+                Console.WriteLine();
+                Console.Write("Ingrese el DNI del socio lector: ");
+                int dniSocio = int.Parse(Console.ReadLine());
+
+                // se busca al socio lector
+                SocioLector socioLectorEncontrado = null;
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
+                {
+                    if (biblioteca.Socios[i].GetType() == typeof(SocioLector))
+                    {
+                        SocioLector socioLector = (SocioLector)biblioteca.Socios[i];
+                        if (socioLector.Dni == dniSocio)
+                        {
+                            socioLectorEncontrado = socioLector;
+                            break;
+                        }
+                    }
+                }
+
+                if (socioLectorEncontrado == null)
+                {
+                    Console.WriteLine("No se encontró un socio lector con ese DNI.");
+                }
+                else
+                {
+                    // se chequea si el socio lector tiene libros prestados
+                    if (socioLectorEncontrado.LibrosPedidos.Count > 0)
+                    {
+                        Console.WriteLine("El socio lector {0} tiene libros prestados.", socioLectorEncontrado.NombreApellido);
+                    }
+                    else
+                    {
+                        Console.WriteLine("El socio lector {0} no tiene libros prestados.", socioLectorEncontrado.NombreApellido);
+                    }
+                }
+
+                volviendoAlMenuPrincipal();
+                Console.WriteLine();
+                MenuPrincipal(biblioteca);
+            }
+
+            static void VerLibroPrestado(Biblioteca biblioteca)
+            {
+                Console.WriteLine();
+                Console.WriteLine("### VER LIBRO PRESTADO ###");
+                Console.WriteLine();
+                Console.Write("Ingrese el DNI del socio lector: ");
+                int dniSocio = int.Parse(Console.ReadLine());
+
+                SocioLector socioLectorEncontrado = null;
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
+                {
+                    if (biblioteca.Socios[i].GetType() == typeof(SocioLector))
+                    {
+                        SocioLector socioLector = (SocioLector)biblioteca.Socios[i];
+                        if (socioLector.Dni == dniSocio)
+                        {
+                            socioLectorEncontrado = socioLector;
+                            break;
+                        }
+                    }
+                }
+
+                if (socioLectorEncontrado == null)
+                {
+                    Console.WriteLine("No se encontró un socio lector con ese DNI.");
+                }
+                else
+                {
+                    if (socioLectorEncontrado.LibrosPedidos.Count > 0)
+                    {
+                        Console.WriteLine("El socio lector {0} tiene los siguientes libros prestados:", socioLectorEncontrado.NombreApellido);
+                        for (int j = 0; j < socioLectorEncontrado.LibrosPedidos.Count; j++)
+                        {
+                            Libro libro = (Libro)socioLectorEncontrado.LibrosPedidos[j];
+                            Console.WriteLine("- {0}", libro.Titulo);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("El socio lector {0} no tiene libros prestados.", socioLectorEncontrado.NombreApellido);
+                    }
+                }
+
+                volviendoAlMenuPrincipal();
+                Console.WriteLine();
+                MenuPrincipal(biblioteca);
+            }
+
+            static void TodosLibrosPrestados(Biblioteca biblioteca)
+            {
+                Console.WriteLine();
+                Console.WriteLine("### TODOS LOS LIBROS PRESTADOS ###");
+                Console.WriteLine();
+
+                bool hayLibrosPrestados = false; // flag para verificar si hay libros prestados
+
+                for (int i = 0; i < biblioteca.Socios.Count; i++)
+                {
+                    if (biblioteca.Socios[i].GetType() == typeof(SocioLector))
+                    {
+                        SocioLector socioLector = (SocioLector)biblioteca.Socios[i];
+                        if (socioLector.LibrosPedidos.Count > 0)
+                        {
+                            if (!hayLibrosPrestados)
+                            {
+                                Console.WriteLine("Los siguientes libros están prestados por socios lectores:");
+                                hayLibrosPrestados = true; // esto porque sí o sí habría un libro prestado, al menos
+                            }
+
+                            for (int j = 0; j < socioLector.LibrosPedidos.Count; j++)
+                            {
+                                Libro libro = (Libro)socioLector.LibrosPedidos[j];
+                                Console.WriteLine("- {0} (Prestado por: {1})", libro.Titulo, socioLector.NombreApellido);
+                            }
+                        }
+                    }
+                }
+
+                if (!hayLibrosPrestados)
+                {
+                    Console.WriteLine("No hay libros prestados por socios lectores.");
+                }
+
+                volviendoAlMenuPrincipal();
+                Console.WriteLine();
+                MenuPrincipal(biblioteca);
+            }
+
+
 
             static void PrestarLibro(Biblioteca biblioteca)
             {
